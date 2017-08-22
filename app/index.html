@@ -1,43 +1,111 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-  </ul>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" >
+    <title>Widget</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media-query.css">
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="js/app.js"></script>
+      <script src="js/controllers.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
+  </head>
+    <body ng-app="WidgetApp" ng-controller="productsController">  
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+        <header>
+            <!--CONTENT HEADER-->
+        </header>
+        <!--START MAIN CONTAINER-->
+        <div class="container wg-main">
+            <section class="row" ng-repeat="product in productsList">
+                <div class="col-sm-12">
+                    <h1>{{product.title}}</h1>
+                       <div class="row">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <figure class="wg-main-image">
+                                    <a href="">
+                                        <img src="http://via.placeholder.com/350x300">
+                                    </a>
+                                </figure>                                
+                            </div>
+                            <div class="col-sm-12 col-md-8 col-lg-8">
+                                <form>
+                                    <fieldset>
+                                        <p class="form-group wg-price">$ {{product.price}} </p>
+                                    </fieldset>
+                                    <fieldset class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-inline row wg-form-row">
+                                                <label class="control-label col-sm-3 col-form-label wg-form-label">Quantity</label>
+                                                <!-- <select class="form-control col-sm-2 wg-form-select"> -->
+                                                <input class="form-control col-sm-2" type="number" name="input" ng-model="product.quantity" min="1" max={{product.stock}} required>
+                                                <!-- </select>    -->
+                                            </div>
+                                            <div class="form-group form-inline row wg-form-row">
+                                                <label class="control-label col-sm-3 col-form-label wg-form-label">Payments</label>
+                                                <!-- //$scope.productsList[0].payments[0] -->
+                                                <select ng-model="product.payment" ng-options="pay for pay in product.payments"></select>  
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <button type="button" class="btn btn-primary ">Comprar</button> 
+                                                    <p class="wg-text">Here goes some disclaimer or explanation about</p>
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </fieldset>
+                                </form>
+                                <section>
+                                    <h4>More products like this</h4>
+                                    <div class="wg-carrusel">
+                                        <ul>
+                                            <li><figure><a href=""><img src="http://via.placeholder.com/60x60"></a></figure></li>
+                                            <li><figure><a href=""><img src="http://via.placeholder.com/60x60"></a></figure></li>
+                                            <li><figure><a href=""><img src="http://via.placeholder.com/60x60"></a></figure></li>
+                                            <li><figure><a href=""><img src="http://via.placeholder.com/60x60"></a></figure></li>
+                                        </ul>
+                                        <a href="" class="glyphicon glyphicon-triangle-left wg-btn-arrow-left"></a>
+                                        <a href="" class="glyphicon glyphicon-triangle-right wg-btn-arrow-right"></a>
+                                    </div>
+                                </section>
+                            </div>
 
-  <div ng-view></div>
+                            <!--CONTENT NAV-->
+                            <div class="col-lg-12">
+                                <section class="wg-nav">
+                                    <nav>    
+                                        <ul class="nav nav-tabs responsive-tabs">
+                                          <li class="active"><a href="#home1">Home</a></li>
+                                          <li><a href="#profile1">Profile</a></li>
+                                        </ul>
+                                    </nav>
+                                     
+                                    <div class="tab-content wg-tab-content">
+                                      <div class="tab-pane active" id="home1">
+                                        <p>1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                      </div>
+                                     
+                                      <div class="tab-pane" id="profile1">
+                                        <p>2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                      </div>
+                                    </div>
+                                </section>
+                            </div>
 
-  <div>Angular seed app: v<span app-version></span></div>
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-</body>
+                       </div>                
+                </div>
+            </section>
+        </div>
+        <footer>
+            <!--CONTENT FOOTER-->
+        </footer>
+    </body>
 </html>
